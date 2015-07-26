@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<messages-root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://utv1/xml_archive/genium/schema/1_0_0/messages.xsd">
+
+    <package-name>genium.trading.dd.messages</package-name>
+
+    <messages>
+        <message id="OrderBook" message-group="10" message-id="1">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="id" type="integer"/>
+                <field name="name" type="string"/>
+                <field name="exchangeId" type="short"/>
+                <field name="marketId" type="short"/>
+                <field name="instrumentGroupId" type="short"/>
+                <field name="modifier" type="short"/>
+                <field name="underlyingId" type="integer"/>
+                <field name="strikePrice" type="integer"/>
+                <field name="expirationDate" type="integer"/>
+                <field name="firstTradingDate" type="long"/>
+                <field name="lastTradingDate" type="long"/>
+                <field name="groupType" type="byte"/>
+                <field name="optionType" type="byte"/>
+                <field name="optionStyle" type="byte"/>
+                <field name="sector" type="string"/>
+                <field name="currency" type="string"/>
+                <field name="currencyUnit" type="byte"/>
+                <field name="currencyRelation" type="integer"/>
+                <field name="contractSize" type="integer"/>
+                <field name="priceQuotationFactor" type="integer"/>
+                <field name="priceUnit" type="byte"/>
+                <field name="tickSizes" ref="TickSizeItem" array="single"/>
+                <field name="decimalsInPrice" type="integer"/>
+                <field name="underlyingName" type="string"/>
+                <field name="issuerId" type="integer"/>
+                <field name="settlementDate" type="long"/>
+                <field name="active" type="boolean"/>
+                <field name="indexMarket" type="boolean"/>
+                <field name="nominalValue" type="long"/>
+                <field name="decimalsInNominalValue" type="integer"/>
+                <field name="fixedIncomeType" type="byte"/>
+                <field name="couponInterest" type="long"/>
+                <field name="couponFrequency" type="integer"/>
+                <field name="nextCouponDate" type="long"/>
+                <field name="dayCountConvention" type="byte"/>
+                <field name="datedDate" type="long"/>
+                <field name="combinationLegs" ref="CombinationLeg" array="single"/>
+                <field name="tradingAtSettlement" type="boolean"/>
+                <field name="action" type="byte"/>
+            </fields>
+        </message>
+        <message id="Participant" message-group="10" message-id="2">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="id" type="integer"/>
+                <field name="participantName" type="string"/>
+                <field name="exchangeId" type="short"/>
+                <field name="exchangeName" type="string"/>
+                <field name="active" type="boolean"/>
+                <field name="participantType" type="byte"/>
+                <field name="action" type="byte"/>
+            </fields>
+        </message>
+        <message id="User" message-group="10" message-id="3">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="id" type="integer"/>
+                <field name="exchangeName" type="string"/>
+                <field name="participantName" type="string"/>
+                <field name="userName" type="string"/>
+                <field name="userFullName" type="string"/>
+                <field name="participantId" type="integer"/>
+                <field name="preTradeRiskCheckEnabled" type="boolean"/>
+                <field name="active" type="boolean"/>
+                <field name="action" type="byte"/>
+            </fields>
+        </message>
+        <message id="SessionChange" message-group="10" message-id="4">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="id" type="integer"/>
+                <field name="type" type="short"/>
+                <field name="name" type="string"/>
+                <field name="matchingType" type="byte"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="level" type="integer"/>
+                <field name="endOfTrading" type="boolean"/>
+            </fields>
+        </message>
+        <message id="Order" message-group="10" message-id="5">
+            <fields>
+                <field name="timeCreated" type="long"/>
+                <field name="timeChanged" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="triggerOrderBookId" type="integer"/>
+                <field name="participantId" type="integer"/>
+                <field name="userId" type="integer"/>
+                <field name="onBehalfOfSubmitterId" type="integer"/>
+                <field name="orderId" type="long"/>
+                <field name="previousOrderId" type="long"/>
+                <field name="side" type="byte"/>
+                <field name="price" type="long"/>
+                <field name="orderQuantity" type="long"/>
+                <field name="leavesQuantity" type="long"/>
+                <field name="displayQuantity" type="long"/>
+                <field name="minimumQuantity" type="long"/>
+                <field name="timeValidity" type="integer"/>
+                <field name="orderType" type="short"/>
+                <field name="exchangeOrderType" type="integer"/>
+                <field name="orderCategory" type="byte"/>
+                <field name="accountId" type="char" array="single"/>
+                <field name="exchangeInfo" type="char" array="single"/>
+                <field name="customerInfo" type="char" array="single"/>
+                <field name="changeReason" type="short"/>
+                <field name="triggerCondition" type="byte"/>
+                <field name="triggerPrice" type="long"/>
+                <field name="triggerSessionType" type="short"/>
+                <field name="orderStatus" type="byte"/>
+                <field name="orderStatusBefore" type="byte"/>
+                <field name="orderBookPosition" type="integer"/>
+                <field name="reloaded" type="boolean"/>
+                <field name="giveUpParticipant" type="char" array="single"/>
+                <field name="tradeReportCode" type="byte"/>
+                <field name="requestedPosition" type="byte"/>
+            </fields>
+        </message>
+        <message id="BinaryDeal" message-group="10" message-id="6">
+            <fields>
+                <field name="orderBookId" type="integer"/>
+                <field name="matchPrice" type="long"/>
+                <field name="matchQuantity" type="long"/>
+                <field name="dealSource" type="short"/>
+                <field name="outsideBbo" type="boolean"/>
+                <field name="matchId" ref="MatchId"/>
+                <field name="buyOrderId" type="long"/>
+                <field name="sellOrderId" type="long"/>
+            </fields>
+        </message>
+        <message id="Trade" message-group="10" message-id="7">
+            <fields>
+                <field name="tradeTime" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="userId" type="integer"/>
+                <field name="participantId" type="integer"/>
+                <field name="orderId" type="long"/>
+                <field name="matchId" ref="MatchId"/>
+                <field name="price" type="long"/>
+                <field name="quantity" type="long"/>
+                <field name="side" type="byte"/>
+                <field name="dealSource" type="short"/>
+                <field name="tradeType" type="byte"/>
+                <field name="passiveAggressive" type="byte"/>
+                <field name="accountId" type="char" array="single"/>
+                <field name="exchangeInfo" type="char" array="single"/>
+                <field name="customerInfo" type="char" array="single"/>
+                <field name="settlementDate" type="long"/>
+                <field name="yieldOrPrice" type="long"/>
+                <field name="accruedInterest" type="long"/>
+                <field name="giveUpParticipant" type="char" array="single"/>
+                <field name="originalTrade" type="boolean"/>
+                <field name="tradeReportCode" type="byte"/>
+                <field name="positionEffect" type="byte"/>
+            </fields>
+        </message>
+        <message id="EquilibriumPrice" message-group="10" message-id="8">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="equilibriumPrice" type="long"/>
+                <field name="bidQuantity" type="long"/>
+                <field name="offerQuantity" type="long"/>
+                <field name="bidImbalanceQuantity" type="long"/>
+                <field name="offerImbalanceQuantity" type="long"/>
+                <field name="sessionId" type="integer"/>
+                <field name="bestBidPrice" type="long"/>
+                <field name="bestBidQuantity" type="long"/>
+                <field name="bestOfferPrice" type="long"/>
+                <field name="bestOfferQuantity" type="long"/>
+            </fields>
+        </message>
+        <message id="StartOfTransaction" message-group="10" message-id="9">
+            <fields>
+                <field name="orderId" type="long"/>
+            </fields>
+        </message>
+        <message id="Commit" message-group="10" message-id="10"/>
+        <message id="EndOfReferenceData" message-group="10" message-id="11"/>
+        <message id="QuotingResponsibility" message-group="10" message-id="12">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="id" type="integer"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="participantId" type="integer"/>
+                <field name="minimumQuantity" type="long"/>
+                <field name="maxSpreads" ref="MaxSpreadItem" array="single"/>
+            </fields>
+        </message>
+        <message id="PriceLimits" message-group="10" message-id="13">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="upperLimit" type="long"/>
+                <field name="lowerLimit" type="long"/>
+                <field name="priceLimits" type="boolean"/>
+                <field name="dynamic" type="boolean"/>
+                <field name="referencePrice" type="long"/>
+            </fields>
+        </message>
+        <message id="ReferencePrice" message-group="10" message-id="14">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="referencePrice" type="long"/>
+                <field name="referencePriceSource" type="short"/>
+                <field name="orderPriceLimitsReferencePrice" type="long"/>
+                <field name="circuitBreakerLimitsReferencePrice" type="long"/>
+                <field name="orderPriceLimitsReferencePriceSource" type="short"/>
+                <field name="circuitBreakerLimitsReferencePriceSource" type="short"/>
+            </fields>
+        </message>
+        <message id="OpenBalance" message-group="10" message-id="15">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="openBalance" type="long"/>
+            </fields>
+        </message>
+        <message id="IndexPrice" message-group="10" message-id="16">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="orderBookId" type="integer"/>
+                <field name="price" type="long"/>
+            </fields>
+        </message>
+        <message id="Account" message-group="10" message-id="17">
+            <fields>
+                <field name="timestamp" type="long"/>
+                <field name="participantId" type="integer"/>
+                <field name="accountId" type="char" array="single"/>
+                <field name="clearingHouseAccountId" type="char" array="single"/>
+            </fields>
+        </message>
+    </messages>
+    <records>
+        <record id="CombinationLeg">
+            <!-- This version number MUST be incremented if any changes is done in any way in the fields -->
+            <version>1</version>
+            <fields>
+                <field name="singleOrderBookId" type="integer"/>
+                <field name="buyLeg" type="boolean"/>
+                <field name="ratio" type="integer"/>
+                <field name="priceQuotationFactor" type="integer"/>
+            </fields>
+        </record>
+        <record id="MatchId">
+            <!-- This version number MUST be incremented if any changes is done in any way in the fields -->
+            <version>1</version>
+            <fields>
+                <field name="matchGroupId" type="long"/>
+                <field name="notUsed" type="integer"/>
+                <field name="combinationMatchId" type="integer"/>
+            </fields>
+        </record>
+        <record id="TickSizeItem">
+            <fields>
+                <field name="lowerLimit" type="long"/>
+                <field name="upperLimit" type="long"/>
+                <field name="tickSize" type="long"/>
+            </fields>
+        </record>
+        <record id="MaxSpreadItem">
+            <fields>
+                <field name="lowerLimit" type="long"/>
+                <field name="upperLimit" type="long"/>
+                <field name="maxSpread" type="long"/>
+                <field name="spreadUnit" type="byte"/>
+            </fields>
+        </record>
+    </records>
+</messages-root>
+

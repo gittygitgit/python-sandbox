@@ -1,0 +1,20 @@
+There are two flavors of classes
+
+Old-style
+Prior to Python 3, the default style
+type(instance) is always type 'instance'
+Removed in Python 3
+
+
+New-style...
+__class__ is always equal to type(instance)
+
+How does one create a new-style class?
+By extending another new-style class or extending something that subclasses object
+
+What are the differences between new and old-style classes?
+TODO
+
+
+What is type/class unification?
+The effort to remove the differences between old and new-style classes.

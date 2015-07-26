@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/readme.txt
+END
+new_ad_accounts.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/new_ad_accounts.py
+END
+generate_tuserpref_inserts.py
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/generate_tuserpref_inserts.py
+END
+insert_users.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/insert_users.py
+END
+preference_codecs.py
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/preference_codecs.py
+END
+generate_tuser_inserts.py
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/generate_tuser_inserts.py
+END
+constants.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/constants.py
+END
+generate_mapping_badge_to_tuserid.py
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/generate_mapping_badge_to_tuserid.py
+END
+generate_tuserpreference_inserts.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/generate_tuserpreference_inserts.py
+END
+logins_fbms_old_bcpusers.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/logins_fbms_old_bcpusers.py
+END
+pyodbc.docx
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/bona/!svn/ver/30041/fbms/tags/fbms-1.5.3.3/fbms-ear/src/main/setup/env/migration/pyodbc.docx
+END

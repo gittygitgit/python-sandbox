@@ -1,0 +1,77 @@
+What's a namespace?
+A set of mappings from names to objects
+
+Why namespaces?
+Provides a way of having the same name point to different objects
+
+Attributes?
+Anything that follows a dot.
+May be either read-only or writable
+
+What attributes are writable?
+Module attributes
+
+Can attributes be deleted?
+Yes, if they are writable
+
+When are namespaces created?
+built-in namespace is created when the interpretter starts up (never deleted)
+
+
+What are built-in names?
+Names that are created when the python interpretter starts
+
+Module global namespace?
+Names loaded when a module is read
+
+What is the __main__ module?
+The pseudo module encompassing statements executed in the top-level invocation of the interpretter, either read from a script of typed in interactively
+
+__builtin__ module?
+Holds the built-in content loaded with the interpretter
+
+So namespaces have different lifetimes?
+Yes.  
+The built-in namespace (from the __builtin__ module) is created when the interpretter starts and lasts until the interpretter is closed.
+The __main__ namespace is created when the interpretter is started and lasts until the interpretter quits.
+Other module namespaces are created when they are loaded into the interpreter and last until the interpretter quits.
+The local namespace of a function is created when the function is called and deleted when the function returns or raises an exception not handled by the function.  Recursive invocations each have their own namespace.
+
+What is a scope?
+A region of a program in which a namespace is directly accessible.
+
+Directly accessible?
+Names in the namespace are accessible without specifying a prefix.
+
+Can multiple namespaces be directly accessible at once, that is, be in scope simultaneously?
+Yes
+
+What is local scope?
+References names defined local to the current function
+
+What is the local scope outside the context of a function?
+References the same namespace as the global scope of the module in which the function is defined.
+
+What is the global scope of a function?
+The global scope of the module in which the function is defined
+
+Can you modify a global name in the context of a function?
+Only if you use the global statement to force the parser to use the name in the function's global namespace
+Can you create a global variable in the context of a function?
+
+Yes, declare the variable as global using the global statement
+
+
+
+
+What is the purpose of the global statement?
+
+
+How are scopes used to resolve a name reference?
+Search the local scope 
+Search the scopes of any enclosing functions
+
+
+What is meant by declaring a name to be global?
+ 
+

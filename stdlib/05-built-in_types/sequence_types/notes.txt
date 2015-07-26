@@ -1,0 +1,10 @@
+What's a sequence type?
+A data structure made up of sequential data, in which order is important.
+
+How many sequence types are there?
+7
+
+What are the sequence types?
+Strings, unicode strings, lists, tuples, bytearrays, buffers and xrange objects.
+
+

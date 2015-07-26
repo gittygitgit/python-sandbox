@@ -1,0 +1,16 @@
+What is a class type?
+
+What is a class object?
+
+What is a class definition
+
+Classes define a namespace
+
+That namespace is implemented, like all namespaces, with a dictionary
+
+What is a descriptor?
+A mechanism which overrides the default attribute binding behavior.
+IOW, if a descriptor is defined for a class, then the descriptor implementation is invoked instead of simply retrieving the attribute through the class's __dict__ attribute
+
+Are descriptors only available for new-style classes?
+Yes

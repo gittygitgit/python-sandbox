@@ -1,0 +1,19 @@
+What are built-ins?
+# stuff that comes for free in python and is actually baked / compiled into the
+Python interpreter
+
+What built-ins does python offer?
+functions, constants, types, exceptions
+
+What's the relationship between the Python standard library and built-ins?
+The python std lib includes both built-ins and modules
+The built-ins are a subset of the Python std lib
+
+How many built-in fcts are there?
+Around 80
+
+What is the built-in namespace?
+TODO
+
+
+

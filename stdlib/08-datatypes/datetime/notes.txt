@@ -1,0 +1,10 @@
+naive / aware
+
+naive?
+a naive date or time object is unaware of it's context in relation to timezones, etc.
+is open to interpretation since nothing is known about timezone, etc.
+
+aware?
+knows about timezones, etc.
+
+

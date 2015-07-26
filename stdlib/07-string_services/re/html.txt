@@ -1,0 +1,1763 @@
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+	<title>PNC Online Banking</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Expires" content="Tue, 04 Dec 1993 21:29:02 GMT" />
+	<meta http-equiv="Cache-Control" content="no-cache, max-age=0, s-maxage=0, must-revalidate, proxy-revalidate, no-store, private" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<script type="text/javascript" src="/dtagent56_xjn3_6113.js" data-dtconfig="rid=RID_81658418|rpid=-782713774|domain=pnc.com|tp=500,50,3"></script><link rel="icon" href="/favicon.ico" type="image/x-icon" />
+	
+    <script language="javascript" type="text/javascript">
+      var tmp = document.domain;
+      if(tmp){
+          document.write('<link rel="shortcut icon" href="https://' + tmp + '/favicon.ico" type="image/x-icon" />');
+      }else{   
+        document.write('<link rel="shortcut icon" href="https://www.onlinebanking.pnc.com/favicon.ico" type="image/x-icon" />');
+      } 
+    </script>
+	
+<!-- Global Styles -->
+	<style type="text/css">@import "/css2/common.css";</style>
+	<!--[if lt IE 7]>
+		<style type="text/css">@import "/css2/ie6Fix.css";</style>		
+	<![endif]-->
+
+<!-- Global Scripts -->
+	<script type="text/javascript" src="/JavaScriptLib/dynamicjs/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+	<script type="text/javascript" src="/JavaScriptLib/dynamicjs/build/yuiloader/yuiloader-min.js"></script>
+	<script type="text/javascript" src="/JavaScriptLib/session.js" id="PNCSession"></script>
+
+	<script language="javascript" type="text/javascript">
+		if (navigator.userAgent.indexOf("Firefox") != -1) {
+	    	window.history.forward(1);
+    	}
+	</script>
+	 
+<script language="JavaScript">
+	var dtmPageName = "my-accounts|summary"; 
+</script>
+
+<script language="JavaScript" src="/JavaScriptLib/ajax.js"></script>
+<script type="text/javascript">
+    
+
+// Start Cookie JS (/fsrscripts/fsrCookie.js)
+ function fsrSetCookie (name, value, expires, path, domain, secure){
+    document.cookie = name+'='+value +
+        ((expires) ? ';expires=' + expires.toGMTString() : '') +
+        ((path) ? ';path=' + path : '') +
+        ((domain) ? ';domain=' + domain : '') +
+        ((secure) ? ';secure' : '');
+}
+
+function getCookieVal( id, defaultValue ) {
+	var re = new RegExp(id+'=(.*)');
+	var value = re.exec(document.cookie);
+	return (value) ? value[1].split(';')[0] : defaultValue;
+}
+//End Cookie JS
+
+		var expDate = new Date();
+	    expDate.setTime(expDate.getTime() + (24*60*1000));	    
+	    parent.customerTypeForSurvey = 'C';	    
+	    	              
+	    fsrSetCookie("foresee1",'C-N-N-P-N', expDate ,'/','', 'true');
+		
+		
+   function openTrustSummaryScreen(accountId,isPilotUser) {
+   
+      if(isPilotUser=="true"){
+
+	      location = "/alservlet/WealthInsightServlet"
+	      
+	  }else{    
+		  location = "/alservlet/TrustAccountSummaryServlet?account=" + accountId;
+	  }	  
+   } 
+
+   function openConsolidateStatementScreen(accountNumber) {
+	  location = "/alservlet/ConsolidatedStatementListingServlet?account=" + accountNumber;
+   }
+   
+   function openEditMultipleScreen() {
+	  location = "/alservlet/MultipleViewServlet";
+   }
+
+	function doConsolidatedView(list) {
+		if (list[list.selectedIndex].value == "") {
+			return false;
+		}
+		location = " /alservlet/ConsolidatedAccountSelectionServlet?customer_view=" + list[list.selectedIndex].value;
+	}
+	
+	function custView() {
+		var customer_view = document.consAccntView.customer_view.value;
+		location = "/alservlet/ConsolidatedAccountSelectionServlet?reset_view=true&customer_view=" + customer_view;
+	}
+
+function doFilter(){
+	document.accountFilter.submit();
+}
+
+//This replaced /JavaScriptLib/myAccountsShowHide.js
+function toggleSection(arrow,section,type) {
+	var arrowSrc = Dom.get(arrow).src;
+	Dom.get(arrow).src = (arrowSrc.indexOf("Down") > -1)?arrowSrc.replace("Down","Right"):arrowSrc.replace("Right","Down");
+	showHide(section);
+	if (Dom.get(section + "Arrow"))
+		Dom.get(section + "Arrow").alt = (arrowSrc.indexOf("Down") > -1)?Dom.get(section + "Arrow").alt.replace("Hide","Show"):Dom.get(section + "Arrow").alt.replace("Show","Hide");
+	if (Dom.get(section + "Link"))
+		Dom.get(section + "Link").title = (arrowSrc.indexOf("Down") > -1)?Dom.get(section + "Link").title.replace("Hide","Show"):Dom.get(section + "Link").title.replace("Show","Hide");
+} 
+
+function loadPersInfo() {
+	
+	
+}
+
+function getMyProfileAjaxContent(url) {
+	document.getElementById("tab2").style.display = "block";
+    var loader = new YAHOO.util.YUILoader({ 
+        base: "/JavaScriptLib/dynamicjs/build/", 
+        require: ["utilities","connection"], 
+        loadOptional: false, 
+        combine: false, 
+        filter: "RAW", 
+        allowRollup: false, 
+        onSuccess: function() {
+        	var div = document.getElementById("myProfileContent");
+        	var YCM = YAHOO.util.Connect;
+			var callback =
+			{
+				customevents:{
+					onStart:function(eventType, args) {
+						document.getElementById('ajaxContent').style.display = "none";
+						document.getElementById("loadingSpinner").style.display = "block";						
+					},
+					onComplete:function(eventType, args) {},
+					onSuccess:function(eventType, args) {
+						var returnedContent = args[0].responseText;
+					  	if(returnedContent.indexOf("TIME ME OUT OF ONLINE BANKING")>-1){
+							location = "/timeout.jsp";
+						}
+					  var xmlobject = args[0].responseXML;
+					  var userInfo = Array();
+						var root = xmlobject.getElementsByTagName('myProfile')[0];
+						for (var i = 0; i < root.childNodes.length; i++) {
+							if (root.childNodes[i].childNodes[0]) {
+								var userInfoObject = new Object();
+								userInfoObject.name = root.childNodes[i].nodeName;
+								userInfoObject.url = root.childNodes[i].attributes[0].nodeValue;
+								userInfoObject.value = root.childNodes[i].childNodes[0].nodeValue;
+								userInfo.push(userInfoObject);
+							}
+						}
+						
+						for (var x = 0; x < userInfo.length; x++) {
+							document.getElementById(userInfo[x].name).innerHTML = userInfo[x].value;
+							document.getElementById(userInfo[x].name + "Edit").href = userInfo[x].url;
+						}
+						
+						document.getElementById('ajaxContent').style.display = "block";
+						document.getElementById('loadingSpinner').style.display = "none";
+					},
+					onFailure:function(eventType, args) {
+						div.innerHTML = "<div class='loadingRightCol'>Sorry. We cannot retrieve the requested information at this time.</div>";   
+					},
+					onUpload:function(eventType, args) {},
+					onAbort:function(eventType, args) {}
+				}
+			}
+			var request = YCM.asyncRequest("GET",url, callback);
+        } 
+    }); 
+ 
+	// Load the files using the insert() method. 
+	loader.insert();
+}
+
+function displayAds(){
+
+	
+	
+		doDfpDynamicKeyValueReplace();
+	
+		
+			if (top.filler.document.getElementById("signOnIntermodalHidden") == null){
+				top.filler.location = '/Marketing/intermodalAds.jsp';
+			}
+		
+	
+	document.getElementById("anc1").innerHTML = document.getElementById("anc1Hidden").innerHTML;
+	
+		
+			document.getElementById("pod1").innerHTML = document.getElementById("pod1Hidden").innerHTML;
+		
+		document.getElementById("rpod1").innerHTML = document.getElementById("rpod1Hidden").innerHTML;
+	
+
+}
+
+function displayPointsPixel(){
+  
+	
+  
+}
+var wId;
+function launchWI(id,rel,share,agree,shareAgree) {
+	//alert("id: " + id + " rel: " + rel + " share: " + share + " agree: " + agree + " shareAgree: " + shareAgree);
+	wId = id;
+	var queryString="";
+	if (rel=='true') {
+		intermodal({content:'RelationshipDisclaimer',data:[share],style:'white', close: false, w:600});
+	} else if (share=='true' || share == true){
+		intermodal({content:'ClientSharingConsent', data:[agree,agree],style:'white', close: false, doAfter:setWealthButton, w:600});
+	} else {
+		intermodal({content:'WealthLoader', loading:'Loading Your null', style:'white', close: false, w:530});
+		loadMessage();
+		if(agree=='true' || agree == true){
+			queryString+="&relAgreed=true";
+		} 
+		queryString+="&crossAffAgree="+shareAgree;
+		if(queryString != null) {
+			location='/alservlet/WealthInsightServlet?wealthparam='+wId+queryString;
+		} else {
+			location='/alservlet/WealthInsightServlet?wealthparam='+wId;
+		}
+		/*if(agree=='true'){
+			location='/alservlet/WealthInsightServlet?wealthparam='+wId+'&relAgreed=true';
+		} else {
+			location='/alservlet/WealthInsightServlet?wealthparam='+wId;
+		}*/
+		
+	}	
+}
+
+
+function changeState() {
+	var button=Dom.get("relDisableID");
+	var cb=Dom.get("reliAgreeId");
+	
+	if(cb.checked) {
+		Dom.replaceClass(button,"disabledButton","formButton");
+		button.disabled="";
+	} else {
+		Dom.replaceClass(button,"formButton","disabledButton");
+		button.disabled="disabled";
+	}
+
+}
+
+/* for client consent intermodal */
+/* removed dynamic phone number for 12/2014 release */
+
+	var isWealth=false;
+	var isTotal=false;
+	var isMM=false;
+	
+	function setWealthButton() {
+			
+		var shareButt=Dom.get("sharingConsentButtDiv").getElementsByTagName("input")[0];
+			
+		if (false) {
+			shareButt.id="wealthButt";
+		} else if (false) {
+			shareButt.id="totalButt";
+		} else if (false) {
+			shareButt.id="mmButt";
+		}
+	}
+	
+	function changeStateShare() {
+		var cb=Dom.get("sharingAgreeId");
+		var cbd=Dom.get("sharingDisagreeId");
+		var shareButt=Dom.get("sharingConsentButtDiv").getElementsByTagName("input")[0];
+		
+		if(cb.checked || cbd.checked) {
+			shareButt.disabled="";
+			Dom.addClass(shareButt,"enabled");
+		} else {
+			shareButt.disabled="disabled";
+			Dom.removeClass(shareButt,"enabled");
+		}
+		
+	}
+
+function preLaunchWI(agree) {
+	var cb=Dom.get("sharingAgreeId");
+	var cbd=Dom.get("sharingDisagreeId");
+	
+	if(cb.checked) {
+		launchWI(wId,'false','false',agree,'true');
+	} else {
+		launchWI(wId,'false','false',agree,'false');
+	}
+}
+function loadMessage() {
+	if(false){
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Brief . . .<div class=\"wiLoadIcons\"><div class=\"briefLoadingMM\"><\/div><\/div>';",1000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Allocation . . .<div class=\"wiLoadIcons\"><div class=\"allocationLoadingMM\"><\/div>'",2000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Income . . .<div class=\"wiLoadIcons\"><div class=\"incomeLoadingMM\"><\/div><\/div>'",3000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Performance . . .<div class=\"wiLoadIcons\"><div class=\"performanceLoadingMM\"><\/div><\/div>'",4000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Transactions . . .<div class=\"wiLoadIcons\"><div class=\"transactionsLoadingMM\"><\/div><\/div>'",5000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Research . . .<div class=\"wiLoadIcons\"><div class=\"researchLoadingMM\"><\/div><\/div>'",6000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Completing Request . . .<div class=\"wiLoadIcons\"><div class=\"researchLoadingMM\"><\/div><\/div>'",7000);
+	} else {
+		setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Brief . . .<div class=\"wiLoadIcons\"><div class=\"briefLoading\"><\/div><\/div>';",1000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Allocation . . .<div class=\"wiLoadIcons\"><div class=\"allocationLoading\"><\/div>'",2000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Income . . .<div class=\"wiLoadIcons\"><div class=\"incomeLoading\"><\/div><\/div>'",3000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Performance . . .<div class=\"wiLoadIcons\"><div class=\"performanceLoading\"><\/div><\/div>'",4000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Transactions . . .<div class=\"wiLoadIcons\"><div class=\"transactionsLoading\"><\/div><\/div>'",5000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Net Worth . . .<div class=\"wiLoadIcons\"><div class=\"netWorthLoading\"><\/div><\/div>'",6000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Loading Research . . .<div class=\"wiLoadIcons\"><div class=\"researchLoading\"><\/div><\/div>'",7000);
+	setTimeout("Dom.get('loadingMessage').innerHTML = 'Completing Request . . .<div class=\"wiLoadIcons\"><div class=\"researchLoading\"><\/div><\/div>'",8000);
+	}
+}
+    
+function unmaskAccount(desc, accNumber, routingNumber,position)
+{
+//	accNumber = accNumber.substring(accNumber.length-11);
+	while (accNumber.charAt(0) == '0') {
+	    if (accNumber.length == 10) { break };
+	    accNumber = accNumber.substring(1);
+	}
+	
+	intermodal({content:'UnMaskAccount', modal: false, context: position, w:300,h:150,style:'white',
+		data:[desc,accNumber,routingNumber], 
+		onClose:function() {
+					clearTimeout(YAHOO.curentOfferTimeout);
+					YAHOO.curentOfferTimeout = null;
+				},
+		doAfter:function() {	
+					clickToHideFunction();
+					if(routingNumber=='' || routingNumber=='null')
+						Dom.setStyle('routingNumber','display','none');
+						
+					YAHOO.curentOfferTimeout = setTimeout("YAHOO.intermodal.hide()",30000);
+				}
+		}); 
+}
+var gprAjax = null;
+
+function loadGPR() {
+	gprAjax = getXmlHttpObject();
+	
+	if (document.getElementById("gprAccountsWrapper") != null) {
+		document.getElementById("gprAccountsWrapper").innerHTML = "";
+	
+		gprAjax.onreadystatechange = populateDiv;
+		gprAjax.open("POST", 'GPRBalanceInitServlet');
+		gprAjax.send();
+	}	
+}
+function populateDiv() { 
+	if (gprAjax.readyState == 4) {
+		document.getElementById("gprAccountsWrapper").innerHTML = gprAjax.responseText;
+	}
+}
+      
+function loadError(xmlHttp){
+	return " <p>Error retrieving request. "
+			+ " State = " + xmlHttp.readyState 
+			+ " Status = " + xmlHttp.status 
+			+ " </p>";;
+}
+function getBalances() {
+	gprAjax = getXmlHttpObject();
+	
+	document.getElementById("gprAccountsWrapper").innerHTML = "<div class='loadingRightCol'><img src='/Images2/Other/big_circular_spinner.gif'></div>";
+	
+	gprAjax.onreadystatechange = populateDiv;
+	gprAjax.open("POST", 'GPRBalanceServlet');
+	gprAjax.send();
+}
+
+//add top border to wealth insight launch div if there's accounts listed above
+function addWIborderTop() {
+	var WIlaunchDiv=Dom.get('WIlaunch');
+	if (Dom.getPreviousSibling('WIlaunch')!=null) {
+		Dom.addClass(WIlaunchDiv,'borderTop');
+	} 
+}
+/************/
+if (typeof(lpUnit)=='undefined')	var lpUnit='service-olb';
+
+function vulnerabilityfixM6(){
+     if(arguments.length == 2){
+	   document.getElementById('vfixformId').action= arguments[0];
+	   document.getElementById('vfixaccountId').value=arguments[1];	   
+	 }
+	 
+	 if(arguments.length == 1){ // virtual wallet
+	   document.getElementById('vfixformId').action= arguments[0];	   
+	 }
+	 
+	 document.getElementById('vfixformId').submit();
+	  
+ }
+ 
+ function showBrowserWarning(id) {
+	document.getElementById('bw' + id).style.visibility = 'visible';
+ }
+</script>
+    
+<style rel="stylesheet" type="text/css">
+ .bluebarmodal {
+	visibility: hidden;
+ }
+ .bluebarmodal .bb-modal-bg-mask {
+   /* maskLayer */
+   /* A dark, translucent div that covers the whole screen */
+   background: #000;
+   opacity: 0.5;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 11;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   filter: alpha(opacity=50);
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+ }
+
+ .bluebarmodal .bb-modal-popover-layer {
+   z-index: 12;
+   display: block;
+   position: absolute;
+   top: 3.2em;
+   left: 0;
+   width: 100%;
+ }
+
+ .bluebarmodal .bb-modal-dialog {
+
+   position: absolute;
+   width: 45em; 
+   min-height: 20em; 
+   background: #fff;
+   position: relative;
+   margin: 0 auto;
+   padding-top: 5.0em; 
+
+   background-color: #fff;
+   box-shadow: 4px 4px 80px #000;
+  }
+
+   .modalHead {
+     background: transparent url('/Images2/phoenixBrowserWarning/panelSprite_transparent.png') 0 0 no-repeat;
+     padding: .5em 0 0 1em; 
+     position: absolute; 
+     top: -0.5em;
+     height: 2.7em; 
+     width: 43.5em; 
+     z-index: 15;
+   }
+   .modalHeadTitle {
+   	 background: transparent url('/Images2/phoenixBrowserWarning/topRight_transparent.png') right no-repeat;
+     position: absolute; 
+     top: 0em;
+     height: 2.8em; 
+     width: 44em;
+     z-index: 16;
+   }
+   .bluebarmodal .bb-modal-dialog h1 {
+   	 color: #FFF;
+   }
+   .bluebarmodal .bb-modal-dialog dl {
+     display: block;
+     margin-top: 1em;
+     margin-bottom: 1em;
+     margin-left: 0;
+     margin-right: 0;
+   }
+   .bluebarmodal .bb-modal-dialog dd {
+     display: block;
+     margin-top: .75em;
+     margin-bottom: .75em;
+     margin-left: 2.5em;
+     margin-right: 0;
+   }
+
+   .bluebarmodal .bb-modal-dialog .col2 {
+     color: #808080;
+	}
+    .bluebarmodal .bb-modal-dialog .col2 hr {
+       border-color: #808080;
+     }
+
+     .bluebarmodal .bb-modal-dialog .col2 dd {
+       margin: 0 0 .75em;
+     }
+
+     .bluebarmodal .bb-modal-dialog .col2 dt span {
+       font-weight: normal;
+     }
+
+     .bluebarmodal .bb-modal-dialog .col2 input[type=text] {
+       width: 100%;
+     }
+     
+  .phoenixContainer h1, .phoenixContainer h2, .phoenixContainer h3, .phoenixContainer h4, .phoenixContainer h5, .phoenixContainer h6 {
+    font-family: PNCSansMedium, Arial, sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+  }
+
+  .phoenixContainer main h1 {
+    padding-bottom: 10px;
+  }
+
+  .phoenixContainer p, .phoenixContainer ul, .phoenixContainer ol, .phoenixContainer pre, .phoenixContainer table, .phoenixContainer blockquote {
+    font-size: 13px;
+    margin: 0 0 1em 1em;
+    padding: 0;
+  }
+
+  .phoenixContainer h1, .phoenixContainer .large {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 1.25%;
+  }
+
+  .phoenixContainer h2, .phoenixContainer .medium {
+    font-size: 16px;
+    line-height: 1.2;
+    color: #808080;
+    margin-left: 12px;
+  }
+  
+  .container1, .two-col-container {
+	  float: left;
+	  width: 102%;
+	  position: relative;
+	  right: 33%;
+	  background: #ffffff;
+	}
+	
+	.one-col-container {
+	  width: 100%;
+	  position: relative;
+	  background: #ffffff;
+	  padding: 2%;
+	}
+	
+	.col1, .col2 {
+	  position: relative;
+	  padding: 0% 6% 2% 2%;
+	  overflow: hidden;
+	}
+	
+	.col1 {  
+		left: 34%;
+	}
+	.col2 { 
+		left: 31%;
+		background-color: #ededed;
+	}
+	
+	.bluebarmodal .bb-modal-dialog-content {
+	    clear: left;
+	    float: left;
+	    width: 100%;
+	    overflow: hidden;
+	    background: #ffffff;
+	  }
+	
+	  .bluebarmodal section.bb-modal-popover-layer aside {
+	    background: #ededed;
+	    position: relative;
+	    top: -.625em;
+	    left: -1.2em;
+	    color: #808080;
+	    width: 23em; 
+	    float: right;
+	    padding: 2%;
+	    margin: -2% -2.2em 0 2%; 
+	    min-height: 34.6em; 
+	  }
+	  
+	  .browserIcon {
+	  	border: 1px solid #0069AA;
+	  	float: left;
+	  	color: #0069AA;
+	  	font-size: 12px;
+	  	text-align: center;
+	  	margin-left: 16px;
+	  }
+	  
+	  .browserImg {
+	  	padding: 8px 8px 8px 8px;
+	  }
+	  
+	  .browserText {
+	  	padding-top: 3px;
+	  	padding-bottom: 11px;
+	  }
+	  
+	  .closeWarning {
+	  	float: left;
+	  	padding-top: 35px;
+	  }
+	  
+	  .phoenixLegalText {
+	  	font-size: 10px !important;
+	  	margin: 1em 0 0 2em !important;
+	  }
+	  
+	  .phoenixHeader{
+	  	padding: 4px 0px 0px 21px !important;
+	  }
+</style>
+</head>
+
+<body onLoad="javascript:loadPersInfo();displayAds();displayPointsPixel();addWIborderTop();" onUnload="top.showOffer = false;" class="yui-skin-sam">
+
+
+
+<!-- Included for Live Person Chat for cashflow insight -->
+
+
+
+
+
+
+<!-- Included for Live Person Chat -->
+
+
+
+
+
+<script type="text/javascript">
+	function disableLinksForEmulator(){
+	
+		
+	}
+</script>
+
+
+
+
+<script type="text/javascript" src="/JavaScriptLib/mtagconfig.js"></script>
+<script type="text/javascript" src="/JavaScriptLib/marketing_cim.js"></script>
+<!-- Start Page Specific Script and Styles -->
+
+<script type="text/javascript">
+parent.isLoggedIntoAl = true;
+
+
+
+function signOff() {
+	//Check to see if Sign Off Ad is present, if not, log off
+	if (top.filler && top.filler.Dom && top.filler.Dom.get('modalSignOffAd')) {
+		try {
+			seeModalAd('modalSignOffAd','NoSignOffAd');
+		 }
+	    catch(err) {
+	        doLogout();
+    	}
+	} else {
+		doLogout();
+	}
+}
+
+function seeModalAd(divID,img) {
+	var ad = top.filler.Dom.get(divID);
+	if (ad && !top.filler.Dom.get(img)) {
+		// Remove the ad so it's never shown again this session
+		ad.parentNode.removeChild(ad);
+		intermodal({content:ad, style:'white', w:630, close:false});
+	}
+}
+
+function doLogout() {
+    // Clear out the marketing stuff in the hidden frame.
+    if (top.filler && top.filler.document.getElementById("signOnIntermodalHidden") != null){
+		top.filler.location = '/blank.html';
+  	}
+  	
+    if(typeof signOffOverride == 'function') {
+		signOffOverride();
+	}else{
+      	location = "/alservlet/LogoutServlet";
+    }
+}
+//MY OFFERS
+function cfiMyOffersPoP(fileName,winName,wth,hght){
+	var helpWin;
+	helpWin= window.open(fileName,winName,'toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width='+wth+',height='+hght);
+	helpWin.focus();
+}
+//MY OFFERS END
+</script>
+
+<div id="header">
+	<div class="top">
+		<div id="pncLink"><a href="/alservlet/MyAccountsServlet" title="PNC Online Banking Home"></a></div>
+		
+		<div id="topLinks">
+		
+			<ul>
+				<!--this is for a Customer who is both CFI and Wealth
+					the rules for this button are:
+					go to Wealth Skillset if it is available
+					if it is not available, go to CFI Skillset
+					if neither is available, the button will not display
+					You will want a Spanish Chat button that corresponds to these Rules
+				-->
+				
+				<li class="left"><a href="#" onclick="openPrivacy();return false;"  class="tipMe" title="PNC respects the privacy of our customers and is committed to protecting your information with the same care we utilize for all PNC transactions. Click to view the details of our consumer privacy principles.">Privacy</a></li>
+				<li class="mid"><a href="#" onclick="openSecurityCenterWindow();return false;"  class="tipMe" title="Security is a priority at PNC. We are committed to protecting the security and confidentiality of your financial information. Click to learn more about how we protect you and how you can protect yourself.">Security</a></li>
+				<li class="right" title="Sign Off"><a href="#" onclick="signOff();return false;">Sign Off</a></li>
+			</ul>
+			
+			<div class="lastSignOn">
+				<span class="bold">Last Sign On:</span> Sunday, June 7, 2015 at 12:37 p.m.<br/>
+				
+					<span class="bold">Email:</span> mgrudkowski@gmail.com&nbsp;&nbsp; 
+					
+						<a href="/alservlet/ModifyEmailServlet" title="Edit Email Address">Edit</a>
+					
+				
+			</div>
+		</div>	
+		<div class="clear"></div>
+	</div>
+
+	<div id="mainNav">
+		<ul>
+			
+				<li id="myAccts" class="left sel"><a href="/alservlet/MyAccountsServlet">My Accounts</a></li>
+			
+
+			
+				<li id="transFunds" class="mid"><a href="/alservlet/TransferFundsControlServlet">Transfer Funds</a></li>
+			
+
+			
+				<li id="billCenter" class="mid"><a href="/alservlet/BillPayControlServlet">Pay Bills</a></li>
+			
+			
+				<li id="Alerts" class="mid"><a href="/alservlet/CtaAlertsControllerServlet">Alerts</a></li>
+			
+
+			
+			
+					
+					<li id="customerService" class="mid"><a href="/alservlet/CustomerServiceServlet">Customer Service</a></li>
+				
+			
+			
+				<li id="myOffers" class="right"><a href="/alservlet/MyOffersServlet">My Offers</a></li>
+			
+		</ul>
+	</div>
+</div>
+
+
+
+
+
+
+	<div id="subNavigation">
+
+		
+		<ul id="myAccountsSubMenu">
+			<li class="sel"><a href="/alservlet/MyAccountsServlet">Summary</a></li>
+			
+			
+            
+            <li>                        
+                 <a href="/alservlet/DepositActivityServlet?account=1edd35dcf2860ecf74db7a71f08c3d64f4806ff6825a5cb34e8ffe03c84d61c3aa948cb38958823d08db24c5c6403d8b,DDA,020">Account Activity</a>                                                            
+            </li>
+				
+                    
+		</ul>
+		
+
+		
+
+		
+		
+		
+		
+
+      
+		
+
+		
+
+		
+	</div>
+	
+	  
+	
+
+
+<div class="clear"></div>
+<div id="contentArea">
+  <div id="pageTitle">
+    
+    <h1 class="account">My Accounts Summary</h1>
+    
+  </div>
+  
+
+
+
+
+  
+  
+  
+  <!-- Start Left Column -->
+  
+  <div id="leftCol_twoThirds">
+    
+    <div id="anc1" style="display:inline;"></div>
+    
+    
+    <div class="panel">
+      <div class="panelHead">
+        <div class="panelHeadTitle">
+          <h1>Account List</h1>
+          <div class="helpIcon"><a href="#" onClick="intermodal({content:'MyAccountsSummary', w:630, type:'help', context:this}); return false;" title="Help"></a></div>
+        </div>
+      </div>
+      <div class="panelContent"> 
+        <!-- Panel Content --> 
+        <!-- Mixed Customer drop down -->
+        
+        
+        <!-- Virtual Wallet --> 
+        <!-- HEADER TABLE FOR ALL VIRTUAL WALLETS -->
+        
+        
+        <!-- Deposit --> 
+        <!-- HEADER TABLE FOR ALL DEPOSITS -->
+        
+        <div class="tableHeader"> <a href="#" id="depositAccountsWrapperLink" onClick="toggleSection('depositAccountsWrapperArrow','depositAccountsWrapper');return false;" title="Hide All Deposit Accounts"> <img id="depositAccountsWrapperArrow" class="accountsArrow" height="10" border="0" width="10" alt="Hide All Deposit Accounts" src="/Images2/Other/blueArrowDown.gif"/> </a> Deposit Accounts </div>
+        <div id="depositAccountsWrapper" class="hiddenOverflow">
+          <table cellpadding="0" cellspacing="0" border="0" class="dataTable_List boldLinks">
+            
+            <!-- CONTENT TABLE FOR ALL DEPOSITS -->
+            <tr class="tableColHeader">
+              <th class="col213">&nbsp;</th>
+              <th class="col91">Account Type</th>
+              <th class="col152">Account Number&nbsp;
+                
+              </th>
+              <th class="col61 alignRight">Balance&nbsp;<img src="/Images2/Icons/infoIcon.gif" class="tipMe" title="The amount in your account as of the end of the last business day. Also called the Ledger Balance." alt=""></th>
+              <th class="col91 alignRight">Available&nbsp;<img src="/Images2/Icons/infoIcon.gif" class="tipMe" title="The amount available for immediate withdrawal from your account. Also called the Available Balance." alt=""></th>
+            </tr>
+            
+            <tr class="depAccount oddRow">
+              
+              <td>
+                <a href="/alservlet/DepositActivityServlet?account=1edd35dcf2860ecf74db7a71f08c3d64f4806ff6825a5cb34e8ffe03c84d61c3aa948cb38958823d08db24c5c6403d8b,DDA,020"> checking </a>
+                
+                </td>
+              
+              <td>Checking</td>
+              <td >
+                XXXXXX5245</td>
+              <td class="alignRight">$22,132.79</td>
+              <td class="alignRight">$22,129.79</td>
+            </tr>
+            
+            <tr class="depAccount evenRow">
+              
+              <td>
+                <a href="/alservlet/DepositActivityServlet?account=1edd35dcf2860ecf74db7a71f08c3d648b459a378fce6dbcd578cdac4b2efc8daa948cb38958823d08db24c5c6403d8b,SVG,020"> Statement Savings </a>
+                
+                </td>
+              
+              <td>Savings</td>
+              <td >
+                XXXXXX5168</td>
+              <td class="alignRight">$500.19</td>
+              <td class="alignRight">$500.19</td>
+            </tr>
+            
+          </table>
+        </div>
+        
+        
+        <!-- DEPOSIT ACCOUNT TOTALS -->
+        <table cellpadding="0" cellspacing="0" border="0" class="dataTable_List boldLinks">
+          <tr class="depAccount subTotal">
+            <td class="col213">&nbsp;</td>
+            <!-- <td class="col91">&nbsp;</td> -->
+            <td colspan="2" class="col243 alignRight bold">Deposit Account Totals:</td>
+            <td class="col61 alignRight">$22,632.98</td>
+            
+            <!-- This needs updated total -->
+            <td class="col91 alignRight">$22,629.98</td>
+          </tr>
+          <tr class="depAccount">
+            <td colspan="5" class="noPad">&nbsp;</td>
+          </tr>
+        </table>
+        
+        
+        <!-- CD -->
+        
+        
+        <!-- IRA -->
+        
+        
+        <!-- Credit Cards -->
+        
+        
+        
+        <!-- GPR Cards -->
+        
+        <!-- END GPR Cards --> 
+        
+        <!-- Loans -->
+        
+        
+        <!-- Wealth -->
+        
+        
+        <!-- Consolidated Statements -->
+        
+        
+        <!-- End Panel Content -->
+        
+        <div class="clear"></div>
+      </div>
+      <div class="panelFooter">
+        <div class="panelFooterRight">&nbsp;</div>
+      </div>
+    </div>
+    
+    <div id="pod1" style="height:120px;"></div>
+    
+  </div>
+  
+  <!-- End Left Col -->
+  
+  
+  <!-- BEGIN RIGHT COLUMN -->
+  <div id="rightCol_oneThird" > 
+    
+    <!-- Contact PNC -->
+    
+    <div class="panel">
+      <div class="panelHead">
+        <div class="panelHeadTitle">
+          <h1>Contact Us</h1>
+        </div>
+      </div>
+      <div class="panelContent">
+        <div class="rightColChat" style="display:inline;">
+          <div id="lp-chat-service-olb-english-message-div" style="display:inline;"></div>
+          <div id="lp-chat-service-olb-spanish-message-div" style="display:inline;"></div>
+        </div>
+        <ul class="iconList">
+          <li class="phone">
+            
+            <div class="break">
+              
+              Call
+              
+              1-888-PNC-BANK </div>
+            
+          </li>
+          <li class="ttyTdd"> <b>TTY/TDD Communications:</b><br/>
+            <b>For Hearing Impaired Customers Only</b><br>
+            <b>1-800-531-1648</b><br/>
+            Mon-Fri: 7am - 10pm ET<br/>
+            Sat-Sun: 8am - 5pm ET </li>
+          
+          
+          <li class="mail"><strong>Secure Messages</strong>
+            
+            <br />
+            
+            <a href="/alservlet/MessageOptionsServlet">Send a Message</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/alservlet/MessageListServlet">View Messages</a> </li>
+          
+          
+          <li class="twitterLogo"><strong>Tweet </strong><a href="#" onClick="intermodal({content:'contactUsTwitter', w:600, style:'white'});return false;">@PNCBank_Help</a></li>
+        </ul>
+        <div class="panelAction"> <a href="/alservlet/ContactUsServlet" class="moreLinkContactUs">More</a> </div>
+        
+        <!-- End Panel Content -->
+        
+        <div class="clear"></div>
+      </div>
+      <div class="panelFooter">
+        <div class="panelFooterRight">&nbsp;</div>
+      </div>
+    </div>
+    
+    <!-- END Info Center -->
+    
+    
+    <div id="rightCol_oneThirdTabView" class="yui-navset">
+      <ul class="yui-nav">
+        <li class="selected" id="firstTab"><a href="#tab1" onClick="document.getElementById('tab2').style.display = ''; return false;">Account Services</a></li>
+        <li id="secondTab"><a href="#tab2" onClick="getMyProfileAjaxContent('/alservlet/PersonalInformationServlet?ajaxCall=myProfile&time=1433695373406')">My Profile</a></li>
+      </ul>
+      <div class="yui-content">
+        <div id="tab1">
+          <div class="panelContent">
+            <ul class="linkItems">
+              
+              <li><a href="/alservlet/CtaAlertsControllerServlet">Alerts</a></li>
+              
+			  
+			  <li><a href="/alservlet/CardInquiryServlet?listType=0">Debit/ATM Card Services</a></li>
+              
+              
+              <li><a href="/alservlet/MobileBankingInitServlet">Mobile Banking</a></li>
+              
+              
+              
+              <li><a href="/alservlet/StatementsPreferencesServlet">Online Statements</a></li>
+              
+              
+              <li><a href="/alservlet/OverdraftSolutionsServlet">Overdraft Solutions</a></li>
+              
+              <li><a href="/alservlet/RewardsInquiryServlet">PNC Rewards Center</a></li>
+            </ul>
+            <div class="panelAction"><a href="/alservlet/CustomerServiceServlet">More</a></div>
+            
+            <!-- End Panel Content -->
+            
+            <div class="clear"></div>
+          </div>
+          <div class="panelFooter">
+            <div class="panelFooterRight">&nbsp;</div>
+          </div>
+        </div>
+        <!-- END of Tab1 Content -->
+        <div id="tab2" class="yui-hidden">
+          <div class="panelContent"> 
+            
+            <!-- Panel Content -->
+            <div id="myProfileContent">
+              <div id="loadingSpinner" class='loadingRightCol'> <img src='/Images2/Other/big_circular_spinner.gif'> </div>
+              <div id="ajaxContent">
+                <ul class="listItems">
+                  <li> <span class="itemShort bold">User ID:</span> <span class="itemCol2"><span id="userId"></span></span> <span class="floatRightLink"> <a href="#" id="userIdEdit">Edit</a> </span> </li>
+                  <li> <span class="itemShort bold">Password:</span> <span class="itemCol2"><span id="pwd"></span></span> <span class="floatRightLink"> <a href="#" id="pwdEdit">Edit</a> </span> </li>
+                  <li> <span class="itemShort bold">Phone:</span> <span class="itemCol2"><span id="phone"></span></span> <span class="floatRightLink"> <a href="#" id="phoneEdit">Edit</a> </span> </li>
+                  <li> <span class="itemShort bold">Address:</span> <span class="itemCol2"><span id="address"></span></span> <span class="floatRightLink"> <a href="#" id="addressEdit">Edit</a> </span> </li>
+                  <li> <span class="itemShort bold">Text Banking:</span> <span class="itemCol2"><span id="textBank"></span></span> <span class="floatRightLink"> <a href="#" id="textBankEdit">Edit</a> </span> </li>
+                </ul>
+              </div>
+            </div>
+            <div class="panelAction"><a href="/alservlet/CustomerServiceServlet">More</a></div>
+            
+            <!-- End Panel Content -->
+            
+            <div class="clear"></div>
+          </div>
+          <div class="panelFooter">
+            <div class="panelFooterRight">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+				buildTabView('rightCol_oneThirdTabView')
+			</script>
+    
+   
+    <!-- PNC points (no Delegates) -->
+	
+            <script type="text/javascript">
+var nocache = new Date().getTime();
+function purchasePaybackOffers(switchOff) {
+	var url = "/alservlet/MerchantRewardsEligibleListByTotalOfferServlet?cache=" + nocache;     
+	var loader = new YAHOO.util.YUILoader({
+		cache:false,
+        base: "/JavaScriptLib/dynamicjs/build/", 
+        require: ["utilities","connection"], 
+        loadOptional: false, 
+        combine: false, 
+        filter: "RAW", 
+        allowRollup: false, 
+        onSuccess: function() {
+        	var YCM = YAHOO.util.Connect;
+			var callback =
+			{ 
+				customevents:{
+					onStart:function(eventType, args) {},
+					onComplete:function(eventType, args) {},
+					onSuccess:function(eventType, args) {
+						
+						var xmlobject = args[0].responseXML;
+					  
+				 		var root = xmlobject.getElementsByTagName('finalEligibleCardsList')[0];
+				 		
+				 		var list = parseX(root);
+						
+				 		if(switchOff == true && list.length == 0){
+				 			//No eligible cards
+				 			document.getElementById('switchOffNoEligible').style.display = 'block';
+				 			return false
+				 		}else if(switchOff == true && list.length >= 1){
+				 			document.getElementById('switchOffEligible').style.display = 'block';
+				 			return false
+				 		};
+
+				 		if(list.length == 0){
+				 			//No eligible cards
+				 			document.getElementById('purchasePaybackHeader').innerHTML = 'PNC Rewards';
+				 			document.getElementById('purchasePaybackNotEligible').style.display = 'block';
+				 			document.getElementById('seeAllOfferLink').style.display = 'none';
+				 			document.getElementById('hideBr').style.display = 'none';
+				 			return false
+				 		};
+				 		
+				 		document.getElementById('purchasePaybackDropdown').style.display = 'block';
+				 		
+						var getOptionBox = "<select id='purchasePaySelBox' onchange='getOffers(this.value)' style='font-size:10px'>";
+						document.getElementById("purchasePaybackSelectText").style.display = "block";
+						document.getElementById("purchasePaybackDropdown").innerHTML = getOptionBox;
+						
+						var changeAccount = "";
+						changeAccount += "account=" + list[0].accountId + "," + list[0].accountType + "," + list[0].accountBankId;							
+						
+						var count = list[0].totalOffers;
+						
+						if(list[0].totalOffers == "0" && list.length > 1){
+							//First option has no offer
+							getOptionBox = "<select id='purchasePaySelBox' onchange='getOffers(\"noOffersSection\")' style='font-size:10px'>";
+							changeAccount = "noOffersSection";							
+						}else if(list[0].totalOffers == "0" && list.length == 1){
+							//No offers and only 1 eligible
+							getOptionBox = "<select id='purchasePaySelBox' style='font-size:10px' disabled>";
+							getOptionBox += "<option>" + list[0].accountDescription.replace("?","&reg;") + "</option>";	
+							getOptionBox += "</select>";
+							
+							document.getElementById("purchasePaybackDropdown").innerHTML = getOptionBox;
+							document.getElementById("noOffersSection").style.display = "block";
+							document.getElementById("purchasePaySelBox").style.color = '#666';
+							return false
+						} else if(list[0].totalOffers >= 1 && list.length == 1){
+							//One offer and only 1 eligible
+							getOptionBox = "<select id='purchasePaySelBox' onchange='getOffers(this.value)' style='font-size:10px' disabled>";
+							getOptionBox += "<option>" + list[0].accountDescription.replace("?","&reg;") + "</option>";	
+							getOptionBox += "</select>";
+							
+							document.getElementById("purchasePaybackDropdown").innerHTML = getOptionBox;
+							document.getElementById("purchasePaySelBox").style.color = '#666';
+							getOffers(changeAccount);
+							return false
+						};
+
+						getOffers(changeAccount);
+						 
+						for (var x = 0; x < list.length; x++) {
+							if(list[x].totalOffers != 0){
+								getOptionBox += "<option value='"+ "account=" + list[x].accountId + "," + list[x].accountType + "," + list[x].accountBankId +"'>" + list[x].accountDescription.replace("?","&reg;") + "</option>";	
+							}else if(list[x].totalOffers == 0){
+								getOptionBox += "<option value='noOffersSection'>" + list[x].accountDescription.replace("?","&reg;") + "</option>";
+							};
+						}
+						
+						getOptionBox += "</select>";
+						document.getElementById("purchasePaybackDropdown").innerHTML = getOptionBox;
+					},
+					onFailure:function(eventType, args) {
+			 			document.getElementById('purchasePaybackHeader').innerHTML = 'PNC Rewards';
+			 			document.getElementById('purchasePaybackNotEligible').style.display = 'block';
+			 			document.getElementById('seeAllOfferLink').style.display = 'none';
+			 			document.getElementById('hideBr').style.display = 'none';
+					},
+					onUpload:function(eventType, args) {},
+					onAbort:function(eventType, args) {}
+				}
+			}
+			var request = YCM.asyncRequest("GET",url, callback);
+        } 
+    }); 
+  
+	// Load the files using the insert() method. 
+	loader.insert();
+} 
+
+DomReadyFunction = function(){
+    	purchasePaybackOffers(); 
+}
+
+function parseX(el) {
+	var list=[];
+		
+	for (var i=0; i < el.childNodes.length; i++) {
+		var node=el.childNodes[i];
+		var id;
+		var obj={};
+		
+		id = node.getElementsByTagName("accountId")[0];
+		obj.accountId = id.getAttribute("accountId");
+		obj.accountType = id.getAttribute("accountType");
+		obj.accountBankId = id.getAttribute("bankId");
+		obj.accountDescription = node.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+		obj.totalOffers = node.getElementsByTagName("totalOffers")[0].childNodes[0].nodeValue;
+		
+		list.push(obj);
+	}
+	
+  	return list;	
+}
+
+</script>      
+
+	
+	
+<div class="panel">
+    <div class="panelHead">
+        <div class="panelHeadTitle">
+            <h1 id="purchasePaybackHeader">PNC Purchase Payback</h1>
+        </div>
+    </div>  
+    
+    
+    <div class="panelContent" style="padding:8px 8px 0px 8px">
+  
+ 
+        
+    		<div style="display:none" id="purchasePaybackSelectText">
+    			Select account to see available offers
+			</div>
+
+			<div id="purchasePaybackDropdown" style="display:none;padding:5px 0px"></div>
+          
+			<div id="purchasePaybackNotEligible" style="display:none;">
+   				<div>
+    				Turn your day-to-day purchases into rewards with PNC Rewards. It's easy and free!
+				</div>
+			
+            	<div class="panelAction"><a class="moreLinkContactUs" href="/alservlet/RewardsInquiryServlet">Learn More</a></div>
+            	<!-- End Panel Content -->
+            
+            	<div class="clear"></div>
+        	</div>
+
+
+			<div style="display: none;" class="pncPointsCashOptions" id="noOffersSection">
+				<div class="pncPointsHead" style="padding-bottom:0px">
+					<div class="paybackGenericImg">
+						<a title="Points and Cash Options" href="/alservlet/RewardsInquiryServlet"><img src="/Images2/merchantrewards/purPayback.png"></a>
+					</div>
+					<div class="pncPointsContent">
+						<p><strong>PNC Purchase Payback</strong></p>
+						<p style="padding-bottom:0px"><strong>Total Offers: <a title="Points and Cash Options" href="/alservlet/RewardsInquiryServlet"><span class="totalOffers">0</span></a></strong><br /></p>
+					</div>
+				</div>
+				<div class="pncPointsCash">
+					<div class="pncPointsCashPreviewWrapper"></div>
+					<div class="clear" id="summaryOffersClear"></div>
+				</div>
+				<p><strong><i>You currently have no offers</i></strong></p>
+			</div>
+			 
+			
+<script type="text/javascript">
+
+
+function getOffers(changeAccount) {
+	var url = "/alservlet/MerchantRewardsAccountActivityGetOffersServlet";
+	var postData = "account="; 
+	
+	if(postData == "account="){
+		postData = changeAccount;
+	};   
+		
+	if(document.getElementById("noOffersSection") != null){
+		document.getElementById("noOffersSection").style.display = "none";
+	};
+		
+	if(changeAccount == "noOffersSection"){
+			document.getElementById("noOffersSection").style.display = "block";
+	}; 
+	
+	var callback =
+	{
+		customevents:{ 
+			onStart:function(eventType, args) {
+					//Dom.setStyle(section,'display','block');
+					document.getElementById("pncPointsCashSection").style.display = 'block';
+					Dom.get('summaryOffersContainer').innerHTML = "";
+					//Dom.removeClass(Dom.getElementsByClassName('spinnerDiv','div','fullCol'),'invisible');
+			
+			},
+			onComplete:function(eventType, args) {},
+			onSuccess:function(eventType, args) {
+				
+				if(args[0].responseText == 'FAIL') {
+					Dom.addClass(Dom.getElementsByClassName('spinnerDiv','div','fullCol'),'invisible');
+					//displayErrorMessage();
+				 	//Dom.setStyle(section,'display','none');
+				 	document.getElementById("pncPointsCashSection").style.display = 'none'; 
+				}
+				else {
+	  			    var spinner= Dom.get('summaryOffersSpinner');
+				 	Dom.setStyle(spinner,'display','none'); 
+					var offersData = args[0].responseXML;
+					if(offersData.documentElement.getAttribute("optedIn")=='false') {
+					 	//Dom.setStyle(section,'display','none');
+					 	document.getElementById("pncPointsCashSection").style.display = 'none'; 
+		  		 	    var offerlink= Dom.get('seeAllOfferLink');
+					 	Dom.setStyle(offerlink,'display','none'); 
+					 	return;
+					}
+					var totOfferCount= Dom.get('totalCountId');
+					totOfferCount.innerHTML=offersData.documentElement.getAttribute("offerCount");
+					parseSummaryOffers(offersData);
+				  
+				}
+	
+			},
+			onFailure:function(eventType, args) {},
+			onUpload:function(eventType, args) {},
+			onAbort:function(eventType, args) {}
+		}
+	}
+	
+	var request = YAHOO.util.Connect.asyncRequest("POST", url, callback, postData);
+	 
+}
+function parseSummaryOffers(xml) {
+		
+
+		var offers = Dom.getElementsBy(function(el){return true}, "Offer", xml, function(el) {renderSummaryOffers(el)});
+		
+		if(!xml.documentElement.getElementsByTagName("NewOffers")[0] && !xml.documentElement.getElementsByTagName("ActiveOffers")[0])
+		{
+			//Dom.setStyle(Dom.get('newOffersSubDiv'),"display","none");
+			Dom.get('summaryOffersContainer').innerHTML = "<p class='italics'>You currently have no Offers.</p>";
+		}
+		initToolTips(); 
+}
+
+function renderSummaryOffers(el) {
+	
+		var offer = Dom.get('summaryOfferTemplate').cloneNode(true);
+		var img = Dom.getElementsByClassName('offerImage tipMe','img',offer)[0];
+		var daysLeft= Dom.getElementsByClassName('daysLeft','div',offer)[0];
+		var offerObj = getSummaryOfferObject(el);
+		
+		offer.id = "";
+		//offer.setAttribute("title",offerObj.toolTip);
+		img.setAttribute("src",offerObj.imgSrc);
+		img.setAttribute("title",offerObj.preMessageText);
+
+		name.innerHTML = offerObj.name;
+		if (Dom.getAncestorByTagName(el,'NewOffers')) { 
+			var newoffer=Dom.getElementsByClassName('newOffer','span',offer)[0];
+			newoffer.innerHTML = "New!";
+		} else if (Dom.getAncestorByTagName(el,'ActiveOffers')) {
+			daysLeft.innerHTML =offerObj.daysLeft+" Days left";	
+		}
+		Dom.get('summaryOffersContainer').appendChild(offer);
+		
+		Dom.setStyle(offer,'display','block');
+		
+	//initToolTips();
+}
+function getSummaryOfferObject(el) {
+	return {offerId:el.getAttribute("id"),
+			offerDetailId:el.getAttribute("detailId"),
+			daysLeft: daysLeft_Summary(new Date(), new Date(el.getAttribute("expirationDate"))),
+			//daysLeft:el.getAttribute("daysLeft"),
+			imgSrc:	el.getAttribute("image"),
+			preMessageText: truncateEscapedCharaters(el.getAttribute("preMessage")),
+			name: truncateEscapedCharaters(el.getAttribute("label"))
+			};	
+}
+function daysLeft_Summary(date1, date2) {
+    var ONE_DAY = 1000 * 60 * 60 * 24;
+    var date1_ms = date1.getTime();
+    var date2_ms = date2.getTime();
+    if ( date1_ms >= date2_ms ) return 0;
+    //var difference_ms = Math.abs(date2_ms - date1_ms);
+    return Math.ceil(((date2_ms - date1_ms)/ONE_DAY)); 
+}
+function truncateEscapedCharaters(text) {
+	text = text.replace(/&lt;/gi, "<");
+	text = text.replace(/&gt;/gi, ">");
+	text = text.replace(/&apos;/gi, "'");
+	text = text.replace(/&quot;/gi, '"');
+	text = text.replace(/target='_blank'/gi, '');
+	return text;
+}
+</script>
+ 
+	<!-- New CASH OPTION -->
+	<br id="hideBr" />
+		<style>
+		.pncPointsCashPreview {
+			float: left;
+			padding: 0px 10px 0px 10px;
+		}
+		</style>
+	<div  id="summaryOfferTemplate"  class="pncPointsCashPreview" style="display: none;height:120px">
+	
+		<a href="/alservlet/RewardsInquiryServlet" title="Points and Cash Options"><img class="offerImage tipMe" src="" /></a>
+		<div class="daysLeft"></div>
+		<a href="/alservlet/RewardsInquiryServlet" title="Points and Cash Options"><span class="newOffer"> </span></a>
+		
+	</div>
+
+	<div id="pncPointsCashSection" class="pncPointsCashOptions" style="display:none;">
+		<div class="pncPointsHead">
+			<div class="paybackGenericImg">
+
+
+
+
+
+
+
+			<a href="/alservlet/RewardsInquiryServlet"><img src="/Images2/merchantrewards/purPayback.png" /></a>
+			</div>
+			<div class="pncPointsContent"><p><strong>PNC Purchase Payback</strong></p>
+			<p><strong>Total Offers: <a href="/alservlet/RewardsInquiryServlet" title="Points and Cash Options"><span id="totalCountId" class="totalOffers"> </span></a></strong> </p></div>
+		</div>
+		<div class="pncPointsCash">
+			<div class="pncPointsCashPreviewWrapper">
+				<div id="summaryOffersSpinner" class="spinnerDiv">
+					<img src="/Images2/Other/big_circular_spinner.gif" alt="Loading" width="32" height="32" align="middle" />
+				</div>
+				<div id="summaryOffersContainer" class="offerContainer"></div>
+				<div id="summaryOffersClear" class="clear"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="seeAllOfferLink" class="pncPointsCashOptions" style="display:block;">
+		<div  class="floatLeftImageLinkLarge linkIcon offersMenu"><a href="/alservlet/RewardsInquiryServlet">See all Offers</a></div>		
+	</div>	
+	
+	
+	<!-- End Panel Content -->	
+         
+        
+        <!-- End Panel Content-->
+        <div class="clear"></div>
+    </div>
+    <div class="panelFooter">
+        <div class="panelFooterRight">&nbsp;</div>
+    </div>
+</div>
+	    
+     
+    <!-- Temporary Pod Creation for OneClick-Start 
+			<div class="addSpaceDC">
+				<a href="/alservlet/OneClickUpgradeInitServlet?from=vwOneClick">
+				<h3>Switch to a VitrualWallet</h3>
+				<div class="dc_content">
+				<img class="offerimage" alt="PNC Switch" src="https://content.pncmc.com/live/pnc/WbbWebOffers/PNCSwitch.jpg">
+				<div class="dc_Text">
+					Turn your checking account into a VirtualWallet and get an entirely new approach to money,desgined to make life easier and transform the way you spend,save and grow
+					<span class="moreLink">Learn more »</span>
+				</div>
+				</div>
+				</a>
+			</div>
+			
+			  Temporary Pod Creation for OneClick-End -->
+    
+    
+    
+    <div id="rpod1" style="height:120px;"></div>
+    
+    
+  </div>
+  <!-- END RIGHT COLUMN -->
+  
+  <div class="clear"></div>
+  
+  
+  <!--  Brokerage Footnote -->
+  
+</div>
+<!-- End Content Area --> 
+
+<!-- Footer -->
+<form action="#" id="vfixformId" method="POST" />
+
+<input type="hidden" name="account" id='vfixaccountId' value='#'>
+</form>
+
+
+
+
+
+<div id="footer">
+
+	
+	
+	<div class="footerContent">
+		<div id="footerRule"></div>
+       
+		<ul>
+			<li>
+				<a href="#" onclick="sgtWindow();return false;" title="Interactive Demo">Interactive Demo</a> | 
+				<a href="#" onclick="openGuaranteeWindow();return false;" title="Online Banking and Bill Pay Guarantee">Online Banking &amp; Bill Pay Guarantee</a> | 
+				<a href="#" onclick="openServiceAgreementWindow();return false;" title="Service Agreement">Service Agreement</a> | 
+				<a href="#" onclick="openPrivacy();return false;"  class="tipMe" title="PNC respects the privacy of our customers and is committed to protecting your information with the same care we utilize for all PNC transactions. Click to view the details of our consumer privacy principles.">Privacy Policy</a> | 
+				<a href="#" class="tipMe" onclick="openSecurityCenterWindow();return false;" title="Security is a priority at PNC. We are committed to protecting the security and confidentiality of your financial information. Click to learn more about how we protect you and how you can protect yourself.">Online Security</a>&nbsp;
+			</li>
+			<li>&copy; Copyright 2015. <a href="#" onclick="openPNCGroupWindow();return false;" title="The PNC Financial Services Group, Inc.">The PNC Financial Services Group, Inc.</a> All Rights Reserved.</li>
+			<li>
+			   
+			  			<a href="javascript:void(0)" onclick="var alkcookie = readTEACookie(); window.open('https://www.livelook.com/welcome/start.aspx?siteid=PNC:SC23675277:US:1&ExtKey='+alkcookie,'LiveLOOK_Co_Browsing','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,titlebar=0,status=0,width=940,height=660,left='+Math.max(0,(screen.width-940)/2)+',top='+Math.max(0,(screen.height-710)/2));return false;"><img style="vertical-align: middle;"   src="/Images2/livelook/livelook.png"  alt="LiveLook" /></a>
+			  
+			   <a href="/alservlet/ContactUsServlet">Need Help? View our Contact Numbers and Hours of Operation</a>
+			</li>
+			<li class="left">
+		
+			    <span class="version">
+
+
+</span> 
+			
+			        <a href="#" onclick="openSecurityWindow()" class="tipMe" title="Security is a priority at PNC. We are committed to protecting the security and confidentiality of your financial information. Click to learn more about how we protect you and how you can protect yourself."><img src="/Images2/wrapper/lock.png" alt="Lock Icon" class="lock" /></a>
+			</li>
+			
+		</ul>
+		
+		<div class="clear"></div>
+
+	</div>
+</div>
+
+<script type="text/javascript" src="//www.livelook.com/services/llfm/FMSet.aspx?siteid=PNC:SC23675277:US:1"></script>
+
+<script type="text/javascript">
+
+  if (parent.restartTimeout) {
+    parent.restartTimeout();
+  }
+  
+  function readTEACookie() {
+	var nameEQ = 'tea' + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length).toUpperCase();
+	}
+
+	return null;
+}
+  
+</script>
+<script src="/JavaScriptLib/pm_fp.js" language="JavaScript" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+	if (self.addEventListener) {                    
+		self.addEventListener("load", populateDevicePrint, false);
+	} else if (self.attachEvent) {                  
+		self.attachEvent("onload", populateDevicePrint);
+	} else {                                        
+		populateDevicePrint();
+	}
+//-->
+</script>
+<!-- This  file is called in footerInclude.jspf to make a callback to keepsessionAlive -->
+
+
+
+
+
+
+
+
+
+
+
+<div id="anc1Hidden" style="display: none;">
+  <div podName="announcement" class="pod">
+    
+    <script language="JavaScript" type="text/javascript">document.write('<script language="JavaScript" src="https://ad.doubleclick.net/adj/pncconsumer/accountsummary;Active60=Y;Active90=Y;BPElig=Y;BPEnroll=Y;MBElig=Y;PPCash=Y;PPPts=N;PPDB=Y;PPCC=N;PPCB=N;PPER=N;PPPtProd=N;PPFlex=N;OSElig=Y;OSMultAcct=Y;OSAllEnroll=Y;SPFree=N;SPWpb=N;USEmp=N;SPPerCk=Y;SPPerSelCk=N;SBFree=N;ACDda=Y;ACSvg=Y;ACRca=N;ACInv=N;ACMtg=N;ACCca=N;ACIla=N;ETCElig=Y;ETCEnroll=Y;ALElig=Y;ALEnroll=Y;ODElig=Y;ODAllProt=Y;ACTst=N;USWealthIn=N;ACRea=N;SPCcaPoint=N;SPCcaFlex=N;SPCcaBuild=N;OClickFlag=Y;PropId=CO_MPD_0062;PropId=CB_CFT_0031;PropId=CO_RTI_0001;sz=610x100;pos=tpod1;tile=1;ord=1433695373207?" type="text/javascript"><\/script>');</script>
+    
+  </div>
+</div>
+
+<div id="pod1Hidden" style="display: none;">
+  <div class="addSpaceLeft">
+    <div class="floatLeft"> 
+      <div podName="accountsummary1" class="pod"> 
+        <script language="JavaScript" type="text/javascript">
+				                document.write('<script language="JavaScript" src="https://ad.doubleclick.net/adj/pncconsumer/accountsummary;Active60=Y;Active90=Y;BPElig=Y;BPEnroll=Y;MBElig=Y;PPCash=Y;PPPts=N;PPDB=Y;PPCC=N;PPCB=N;PPER=N;PPPtProd=N;PPFlex=N;OSElig=Y;OSMultAcct=Y;OSAllEnroll=Y;SPFree=N;SPWpb=N;USEmp=N;SPPerCk=Y;SPPerSelCk=N;SBFree=N;ACDda=Y;ACSvg=Y;ACRca=N;ACInv=N;ACMtg=N;ACCca=N;ACIla=N;ETCElig=Y;ETCEnroll=Y;ALElig=Y;ALEnroll=Y;ODElig=Y;ODAllProt=Y;ACTst=N;USWealthIn=N;ACRea=N;SPCcaPoint=N;SPCcaFlex=N;SPCcaBuild=N;OClickFlag=Y;PropId=CO_MPD_0062;PropId=CB_CFT_0031;PropId=CO_RTI_0001;sz=296x105;pos=lpod1;tile=2;ord=1433695373207?" type="text/javascript"><\/script>');
+				            </script> 
+      </div>
+    </div>
+    <div class="floatRight">
+      <div podName="accountsummary2" class="pod"> 
+        <script language="JavaScript" type="text/javascript">
+				                document.write('<script language="JavaScript" src="https://ad.doubleclick.net/adj/pncconsumer/accountsummary;Active60=Y;Active90=Y;BPElig=Y;BPEnroll=Y;MBElig=Y;PPCash=Y;PPPts=N;PPDB=Y;PPCC=N;PPCB=N;PPER=N;PPPtProd=N;PPFlex=N;OSElig=Y;OSMultAcct=Y;OSAllEnroll=Y;SPFree=N;SPWpb=N;USEmp=N;SPPerCk=Y;SPPerSelCk=N;SBFree=N;ACDda=Y;ACSvg=Y;ACRca=N;ACInv=N;ACMtg=N;ACCca=N;ACIla=N;ETCElig=Y;ETCEnroll=Y;ALElig=Y;ALEnroll=Y;ODElig=Y;ODAllProt=Y;ACTst=N;USWealthIn=N;ACRea=N;SPCcaPoint=N;SPCcaFlex=N;SPCcaBuild=N;OClickFlag=Y;PropId=CO_MPD_0062;PropId=CB_CFT_0031;PropId=CO_RTI_0001;sz=296x105;pos=lpod2;tile=3;ord=1433695373207?" type="text/javascript"><\/script>');
+				            </script> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="rpod1Hidden" style="display: none;">
+  <div podName="accountsummary3" class="pod"> 
+    <script language="JavaScript" type="text/javascript">
+				    document.write('<script language="JavaScript" src="https://ad.doubleclick.net/adj/pncconsumer/accountsummary;Active60=Y;Active90=Y;BPElig=Y;BPEnroll=Y;MBElig=Y;PPCash=Y;PPPts=N;PPDB=Y;PPCC=N;PPCB=N;PPER=N;PPPtProd=N;PPFlex=N;OSElig=Y;OSMultAcct=Y;OSAllEnroll=Y;SPFree=N;SPWpb=N;USEmp=N;SPPerCk=Y;SPPerSelCk=N;SBFree=N;ACDda=Y;ACSvg=Y;ACRca=N;ACInv=N;ACMtg=N;ACCca=N;ACIla=N;ETCElig=Y;ETCEnroll=Y;ALElig=Y;ALEnroll=Y;ODElig=Y;ODAllProt=Y;ACTst=N;USWealthIn=N;ACRea=N;SPCcaPoint=N;SPCcaFlex=N;SPCcaBuild=N;OClickFlag=Y;PropId=CO_MPD_0062;PropId=CB_CFT_0031;PropId=CO_RTI_0001;sz=296x105;pos=rpod1;tile=4;ord=1433695373207?" type="text/javascript"><\/script>');
+				</script> 
+  </div>
+</div>
+
+
+<script type="text/javascript">
+function doDfpDynamicKeyValueReplace(){
+    var impressionInfo = "";
+    var adDivPage = Dom.getElementsByClassName("CO_MPD_0062");
+    if (adDivPage){
+        for (x=0; x<adDivPage.length; x++) {
+            var adDiv = adDivPage[x];
+            impressionInfo += "CO_MPD_0062;IMPRESSION;" + Dom.getAncestorByClassName(adDiv, "pod").getAttribute("podName") + ",";
+            for (i=0;i<Dom.getElementsByClassName("name","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("name","span",adDiv)[i].innerHTML = "Michael";
+            }
+            for (i=0;i<Dom.getElementsByClassName("Version","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("Version","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("Headline","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("Headline","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("SmHeadline","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("SmHeadline","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("Name","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("Name","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("BodyVar1","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("BodyVar1","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("BodyVar2","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("BodyVar2","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("BodyVar3","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("BodyVar3","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("BodyVar4","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("BodyVar4","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("SmBody","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("SmBody","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("Call","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("Call","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("SmCall","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("SmCall","span",adDiv)[i].innerHTML = "";
+            }
+            for (i=0;i<Dom.getElementsByClassName("URL","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("URL","span",adDiv)[i].innerHTML = "";
+            }
+        }
+    }
+    var adDivPage = Dom.getElementsByClassName("CB_CFT_0031");
+    if (adDivPage){
+        for (x=0; x<adDivPage.length; x++) {
+            var adDiv = adDivPage[x];
+            impressionInfo += "CB_CFT_0031;IMPRESSION;" + Dom.getAncestorByClassName(adDiv, "pod").getAttribute("podName") + ",";
+            for (i=0;i<Dom.getElementsByClassName("name","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("name","span",adDiv)[i].innerHTML = "Michael";
+            }
+        }
+    }
+    var adDivPage = Dom.getElementsByClassName("CO_RTI_0001");
+    if (adDivPage){
+        for (x=0; x<adDivPage.length; x++) {
+            var adDiv = adDivPage[x];
+            impressionInfo += "CO_RTI_0001;IMPRESSION;" + Dom.getAncestorByClassName(adDiv, "pod").getAttribute("podName") + ",";
+            for (i=0;i<Dom.getElementsByClassName("name","span",adDiv).length;i++) {
+                Dom.getElementsByClassName("name","span",adDiv)[i].innerHTML = "Michael";
+            }
+        }
+    }
+    loadFeedbackImage(impressionInfo);
+}
+
+</script><script  type="text/JavaScript" src="/JavaScriptLib/marketing_cim.js"></script><script type="text/JavaScript">
+</script> 
+<script type="text/javascript">
+lpAddVars ('page','PageName','My Accounts Summary');
+</script>
+
+
+	
+	
+	
+    	<script type="text/javascript"> 
+	   		var dtmPageNameFromHeader = "";
+	   		
+	   		if(dtmPageName){
+	   			dtmPageNameFromHeader = dtmPageName;
+	   		}
+	   		
+			var page_data = {  	 	
+			 	site_name: 	 	"olb", 
+			 	language:  	 	"en", 
+			 	page_name:   	dtmPageNameFromHeader, 
+			 	page_type: 	 	"olb_mass",
+			 	
+					owned_products:	'DDA,DCA,SVG',
+					olb_experiences:'',
+				
+				c_id:	"",
+				page_error:	[ ],
+				events:	[ ]
+			};	
+
+			function downloadJSAtOnload() {
+				var element = document.createElement("script");
+				
+					element.src = "//assets.adobedtm.com/1d90950c926aacaf003e1e8e48aeb1189d4d7901/satelliteLib-0b251a2d8c6b59ad98d7c1a62afb37e675ae06bc.js";
+				
+				document.body.appendChild(element);
+			}
+			
+			if (window.addEventListener){
+				window.addEventListener("load", downloadJSAtOnload, false);
+			}else if (window.attachEvent){
+				window.attachEvent("onload", downloadJSAtOnload);
+			}else{ 
+				window.onload = downloadJSAtOnload;
+			}
+			
+			function callSatelite() {
+				{if (typeof _satellite !=="undefined")
+					_satellite.pageBottom();
+				}
+			}
+			
+			setTimeout(callSatelite,1500);
+		</script>
+	 
+ 
+</body>
+
+
+</html>
